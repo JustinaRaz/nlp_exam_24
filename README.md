@@ -1,1 +1,1 @@
-# nlp_exam_24
+# MSc Cognitive Science - Natural Language Processing
