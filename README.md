@@ -2,6 +2,7 @@
 This repository contains the code for the exam project of Natural Language Processing course in Aarhus University.
 
 ## Repository organization
+```
 ├── README.md                <- The top-level README for this project
 ├── data                     <- Folder containing predefined color-specific tasks for the models to be tested on
 |   ├── tasks_bert.txt       <- Tasks formatted for BERT models
@@ -18,3 +19,4 @@ This repository contains the code for the exam project of Natural Language Proce
 ├── .gitignore               <- A list of files not uploaded to git
 ├── requirements.txt         <- A requirements file specifying the required packages
 └── run.sh                   <- Script to set up a virtual environment with the requirements from requirements.txt and run main.py 
+```
