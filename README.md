@@ -26,16 +26,30 @@ Follow the steps below to reproduce the results.
     ```
     cd path_to_folder
     ```
+    
 3. In the terminal, run the following command to install the required packages and set up the virtual environment:
     ```
     bash setup.sh
     ```
+    
 4. Activate virtual environment:
    ```
    source ./env/bin/activate
    ```
-5. Run the code [for reasoning condition]:
-   ```
-   python main -lm __ -crt __
-   ```
    
+5. Run the code for **reasoning** condition:
+   ```
+   python main.py -lm __ -crt __
+   ```
+   The empty spaces " __ " should contain the size of the language model {small, medium, large, xlarge} and the type of CRT {alternative, original}, respectively.
+   
+6. Run the code for **no reasoning** condition:
+   ```
+   python main_no_reasoning.py -lm __ -crt __
+   ```
+   The empty spaces " __ " should contain the size of the language model {small, medium, large, xlarge} and the type of CRT {alternative, original}, respectively.
+   
+8. Deactivate virtual environment.
+   ```
+   deactivate
+   ```
