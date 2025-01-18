@@ -34,5 +34,8 @@ Follow the steps below to reproduce the results.
    ```
    source ./env/bin/activate
    ```
-5. The following command 
+5. Run the code [for reasoning condition]:
+   ```
+   python main -lm __ -crt __
+   ```
    
