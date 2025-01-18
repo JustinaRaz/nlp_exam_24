@@ -26,3 +26,13 @@ Follow the steps below to reproduce the results.
     ```
     cd path_to_folder
     ```
+3. In the terminal, run the following command to install the required packages and set up the virtual environment:
+    ```
+    bash setup.sh
+    ```
+4. Activate virtual environment:
+   ```
+   source ./env/bin/activate
+   ```
+5. The following command 
+   
