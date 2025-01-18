@@ -10,10 +10,19 @@ This repository contains the code for the exam project of Natural Language Proce
 ├── output                     <- Contains plots [emissions] and raw output of all GPT-2 LMs.    
 ├── README.md                  <- Brief project description.                    
 ├── emissions.ipynb            <- Notebook for plotting "emissions" results.                
-├── functions.py               <- Necessary pre-defined functions [reasoning condition]
-├── functions_no_reasoning.py  <- Necessary pre-defined functions [no reasoning condition]            
-├── main.py                    <- Main script [reasoning condition]
-├── main_no_reasoning.py       <- Main script [no reasoning condition]
+├── functions.py               <- Necessary pre-defined functions [reasoning condition].
+├── functions_no_reasoning.py  <- Necessary pre-defined functions [no reasoning condition].          
+├── main.py                    <- Main script [reasoning condition].
+├── main_no_reasoning.py       <- Main script [no reasoning condition].
 ├── requirements.txt           <- Necessary libraries for running the code.
 └── setup.sh                   <- Script for creating virtual environment and installing necessary libraries.
 ```
+
+## To reproduce
+
+Follow the steps below to reproduce the results.
+
+1. Open the terminal and locate the folder with all repository files:
+  ```
+  cd path_to_folder
+  ```
