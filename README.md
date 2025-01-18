@@ -23,6 +23,6 @@ This repository contains the code for the exam project of Natural Language Proce
 Follow the steps below to reproduce the results.
 
 1. Open the terminal and locate the folder with all repository files:
-  ```
-  cd path_to_folder
-  ```
+    ```
+    cd path_to_folder
+    ```
