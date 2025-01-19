@@ -1,0 +1,236 @@
+---
+title: "Plotting Results"
+author: "Justina Razanauskaite"
+date: "2025-01-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+pacman::p_load(tidyverse, ggplot2, tidyr, scales)
+```
+
+Creating a data frame manually for visualizing responses of GPT-2 models when explicit reasoning was NOT instructed:
+
+```{r}
+crt_type <- c('original', 'original', 'original', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative')
+
+small <- c('Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect')
+
+medium <- c('Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Incorrect', 'Intuitive', 'Intuitive')
+
+large <- c('Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect')
+
+xlarge <- c('Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Intuitive', 'Intuitive', 'Incorrect', 'Incorrect')
+
+data_no_reasoning <- tibble(
+  crt_type = crt_type,
+  small = small,
+  medium = medium,
+  large = large,
+  xlarge = xlarge
+)
+
+data_no_reasoning$crt_type <- as.factor(data_no_reasoning$crt_type)
+data_no_reasoning$small <- as.factor(data_no_reasoning$small)
+data_no_reasoning$medium <- as.factor(data_no_reasoning$medium)
+data_no_reasoning$large <- as.factor(data_no_reasoning$large)
+data_no_reasoning$xlarge <- as.factor(data_no_reasoning$xlarge)
+```
+
+Plot:
+```{r}
+data_original_no_reasoning <- data_no_reasoning %>%
+  filter(crt_type == "original")
+
+data_alternative_no_reasoning <- data_no_reasoning %>%
+  filter(crt_type == "alternative")
+```
+
+Plotting original:
+```{r}
+# Reshape
+data_original_longer_no_reasoning <- data_original_no_reasoning %>%
+  pivot_longer(cols = small:xlarge, names_to = "model_size", values_to = "response")
+
+# Calculate percentage
+data_original_summary_no_reasoning <- data_original_longer_no_reasoning %>%
+  group_by(model_size, response) %>%
+  summarise(count = n()) %>%
+  mutate(percentage = count / sum(count) * 100)
+
+data_original_summary_no_reasoning <- data_original_summary_no_reasoning %>%
+  mutate(model_size = factor(model_size, levels = c("small", "medium", "large", "xlarge")))
+
+# Plotting
+ggplot(data_original_summary_no_reasoning, aes(x = model_size, y = percentage, fill = response)) +
+  geom_bar(stat = "identity", position = "stack") +
+  coord_flip() +
+  scale_fill_manual(values = c("grey", "royalblue", "limegreen"), 
+                    name = "Response", 
+                    labels = c("Incorrect", "Intuitive", "Correct")) +
+  scale_x_discrete(labels = c("small" = "Small", 
+                              "medium" = "Medium", 
+                              "large" = "Large", 
+                              "xlarge" = "XL")) +
+  labs(title = "The original Cognitive Reflection Task", 
+       x = "GPT-2 size", 
+       y = "Percentage") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 100/3),
+                     labels = label_percent(scale = 1))
+```
+Plotting alternative:
+```{r}
+# Reshape
+data_alternative_longer_no_reasoning <- data_alternative_no_reasoning %>%
+  pivot_longer(cols = small:xlarge, names_to = "model_size", values_to = "response")
+
+# Calculate percentage
+data_alternative_summary_no_reasoning <- data_alternative_longer_no_reasoning %>%
+  group_by(model_size, response) %>%
+  summarise(count = n()) %>%
+  mutate(percentage = count / sum(count) * 100)
+
+data_alternative_summary_no_reasoning <- data_alternative_summary_no_reasoning %>%
+  mutate(
+    model_size = factor(model_size, levels = c("small", "medium", "large", "xlarge")),
+    response = factor(response, levels = c("Incorrect","Correct", "Intuitive")) # Reorder levels
+  )
+
+# Plotting
+ggplot(data_alternative_summary_no_reasoning, aes(x = model_size, y = percentage, fill = response)) +
+  geom_bar(stat = "identity", position = "stack") +
+  coord_flip() +
+  scale_fill_manual(values = c("grey", "royalblue"), 
+                    name = "Response", 
+                    labels = c("Incorrect", "Intuitive")) +
+  scale_x_discrete(labels = c("small" = "Small", 
+                              "medium" = "Medium", 
+                              "large" = "Large", 
+                              "xlarge" = "XL")) +
+  labs(title = "The alternative Cognitive Reflection Task", 
+       x = "GPT-2 size", 
+       y = "Percentage") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20),
+                     labels = label_percent(scale = 1))
+```
+
+
+Creating a data frame manually for visualizing responses of GPT-2 models when explicit reasoning was instructed:
+
+```{r}
+crt_type <- c('original', 'original', 'original', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative', 'alternative')
+
+small <- c('Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect')
+
+medium <- c('Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Intuitive', 'Intuitive', 'Intuitive')
+
+large <- c('Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Intuitive', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect', 'Incorrect')
+
+xlarge <- c('Incorrect', 'Incorrect', 'Incorrect', 'Correct', 'Intuitive', 'Intuitive', 'Incorrect', 'Intuitive', 'Incorrect', 'Intuitive', 'Intuitive', 'Incorrect', 'Incorrect')
+
+data <- tibble(
+  crt_type = crt_type,
+  small = small,
+  medium = medium,
+  large = large,
+  xlarge = xlarge
+)
+
+data$crt_type <- as.factor(data$crt_type)
+data$small <- as.factor(data$small)
+data$medium <- as.factor(data$medium)
+data$large <- as.factor(data$large)
+data$xlarge <- as.factor(data$xlarge)
+```
+
+Plot:
+```{r}
+data_original <- data %>%
+  filter(crt_type == "original")
+
+data_alternative <- data %>%
+  filter(crt_type == "alternative")
+```
+
+Plotting original:
+```{r}
+# Reshape
+data_original_longer <- data_original %>%
+  pivot_longer(cols = small:xlarge, names_to = "model_size", values_to = "response")
+
+# Calculate percentage
+data_original_summary <- data_original_longer %>%
+  group_by(model_size, response) %>%
+  summarise(count = n()) %>%
+  mutate(percentage = count / sum(count) * 100)
+
+data_original_summary <- data_original_summary %>%
+  mutate(model_size = factor(model_size, levels = c("small", "medium", "large", "xlarge")))
+
+# Plotting
+ggplot(data_original_summary, aes(x = model_size, y = percentage, fill = response)) +
+  geom_bar(stat = "identity", position = "stack") +
+  coord_flip() +
+  scale_fill_manual(values = c("grey", "royalblue", "limegreen"), 
+                    name = "Response", 
+                    labels = c("Incorrect", "Intuitive", "Correct")) +
+  scale_x_discrete(labels = c("small" = "Small", 
+                              "medium" = "Medium", 
+                              "large" = "Large", 
+                              "xlarge" = "XL")) +
+  labs(title = "The original Cognitive Reflection Task", 
+       x = "GPT-2 size", 
+       y = "Percentage") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 100/3),
+                     labels = label_percent(scale = 1))
+```
+
+Plotting alternative:
+```{r}
+# Reshape
+data_alternative_longer <- data_alternative %>%
+  pivot_longer(cols = small:xlarge, names_to = "model_size", values_to = "response")
+
+# Calculate percentage
+data_alternative_summary <- data_alternative_longer %>%
+  group_by(model_size, response) %>%
+  summarise(count = n()) %>%
+  mutate(percentage = count / sum(count) * 100)
+
+data_alternative_summary <- data_alternative_summary %>%
+  mutate(
+    model_size = factor(model_size, levels = c("small", "medium", "large", "xlarge")),
+    response = factor(response, levels = c("Incorrect","Correct", "Intuitive")) # Reorder levels
+  )
+
+# Plotting
+ggplot(data_alternative_summary, aes(x = model_size, y = percentage, fill = response)) +
+  geom_bar(stat = "identity", position = "stack") +
+  coord_flip() +
+  scale_fill_manual(values = c("grey", "limegreen", "royalblue"), 
+                    name = "Response", 
+                    labels = c("Incorrect", "Correct", "Intuitive")) +
+  scale_x_discrete(labels = c("small" = "Small", 
+                              "medium" = "Medium", 
+                              "large" = "Large", 
+                              "xlarge" = "XL")) +
+  labs(title = "The alternative Cognitive Reflection Task", 
+       x = "GPT-2 size", 
+       y = "Percentage") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 20),
+                     labels = label_percent(scale = 1))
+```
