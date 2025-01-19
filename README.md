@@ -7,6 +7,7 @@ This repository contains the code for the exam project of Natural Language Proce
 |   ├── alternative_CRT.txt          <- 10 CRT questions (non-mathematical nature).
 |   └── original_CRT.txt             <- 3 CRT questions (mathematical nature).
 ├── emissions                        <- Contains calculations of CO2 emissions produced by running each LM.
+├── evidence                         <- Contains human data on CRT from other studies. Includes plotting of those results. Plots are included in Appendix 3 and 4.
 ├── output                           <- Contains plots [emissions] and raw output of all GPT-2 LMs.    
 ├── README.md                        <- Brief project description.                    
 ├── emissions.ipynb                  <- Notebook for plotting "emissions" results.                
