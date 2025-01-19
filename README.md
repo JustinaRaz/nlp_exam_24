@@ -3,19 +3,20 @@ This repository contains the code for the exam project of Natural Language Proce
 
 ## Repository organization
 ```
-├── crt_questions              <- 2 text files with the CRT questions.
-|   ├── alternative_CRT.txt    <- 10 CRT questions (non-mathematical nature).
-|   └── original_CRT.txt       <- 3 CRT questions (mathematical nature).
-├── emissions                  <- Contains calculations of CO2 emissions produced by running each LM.
-├── output                     <- Contains plots [emissions] and raw output of all GPT-2 LMs.    
-├── README.md                  <- Brief project description.                    
-├── emissions.ipynb            <- Notebook for plotting "emissions" results.                
-├── functions.py               <- Necessary pre-defined functions [reasoning condition].
-├── functions_no_reasoning.py  <- Necessary pre-defined functions [no reasoning condition].          
-├── main.py                    <- Main script [reasoning condition].
-├── main_no_reasoning.py       <- Main script [no reasoning condition].
-├── requirements.txt           <- Necessary libraries for running the code.
-└── setup.sh                   <- Script for creating virtual environment and installing necessary libraries.
+├── crt_questions                    <- 2 text files with the CRT questions.
+|   ├── alternative_CRT.txt          <- 10 CRT questions (non-mathematical nature).
+|   └── original_CRT.txt             <- 3 CRT questions (mathematical nature).
+├── emissions                        <- Contains calculations of CO2 emissions produced by running each LM.
+├── output                           <- Contains plots [emissions] and raw output of all GPT-2 LMs.    
+├── README.md                        <- Brief project description.                    
+├── emissions.ipynb                  <- Notebook for plotting "emissions" results.                
+├── functions.py                     <- Necessary pre-defined functions [reasoning condition].
+├── functions_no_reasoning.py        <- Necessary pre-defined functions [no reasoning condition].
+├── gpt-2-analysis-visualization.Rmd <- Code for plotting models' performance.        
+├── main.py                          <- Main script [reasoning condition].
+├── main_no_reasoning.py             <- Main script [no reasoning condition].
+├── requirements.txt                 <- Necessary libraries for running the code.
+└── setup.sh                         <- Script for creating virtual environment and installing necessary libraries.
 ```
 
 ## To reproduce
